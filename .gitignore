@@ -2,3 +2,5 @@ venv
 .venv
 myvenv
 __pycache__
+__pycache__/*
+WebDenial/__pycache__
