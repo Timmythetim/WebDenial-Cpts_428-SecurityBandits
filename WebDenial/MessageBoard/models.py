@@ -19,6 +19,3 @@ class Post(models.Model):
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
-
-# TODO keep working on this guy
-# https://realpython.com/python-django-blog/#create-the-django-blog-application
