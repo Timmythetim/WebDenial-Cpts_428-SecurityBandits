@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
 
 # Application definition
 
@@ -44,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTH_USER_MODEL = "MessageBoard.Profile"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,4 +122,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/accounts/login"
+LOGOUT_REDIRECT_URL = "/login"

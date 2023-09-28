@@ -6,7 +6,7 @@
 <h2>Log In</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ login_form.as_p }}
   <button type="submit">Log In</button>
   <a href="http://localhost:8000/register">Create an Account!</a>
 </form>
