@@ -3,22 +3,9 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-{% block navbar %}
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">WebDenial</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-            </ul>
-        </div>
-    </div>
-</nav>
-{% endblock navbar %}
+{% include 'components/baseNav.html' %} 
+
+
 <h2>Log In</h2>
 <form method="post">
   {% csrf_token %}
