@@ -5,5 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
+    path("register", views.register_request, name="register"),
+    path("login/", views.login_view),
+    path("logout/", views.logout_view),
     
 ]
