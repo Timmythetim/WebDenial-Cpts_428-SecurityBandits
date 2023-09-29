@@ -3,6 +3,8 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+{% include 'components/baseNav.html' %} 
+
 <h2>Log In</h2>
 <form method="post">
   {% csrf_token %}

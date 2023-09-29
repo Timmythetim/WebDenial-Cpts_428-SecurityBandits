@@ -3,10 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
+
+<!-- this happens if we log in -->
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="http://localhost:8000/logout">Log Out</a></p>
+
+{% include 'components/loginNav.html' %}
+
+Hi {{ user.username }}!
+<p><a href="http://localhost:8000/logout">Log Out</a></p>
+
+<!-- this happens if we are not logged in -->
 {% else %}
+{% include 'components/logoutNav.html' %}
+
   <p>You are not logged in</p>
   <a href="http://localhost:8000/login">Log In</a>
 {% endif %}
