@@ -15,8 +15,8 @@ Hi {{ user.username }}!
   {% for post in posts %}
   <div class="card mb-4">
       <div class="card-body">
-          <h2 class="card-title">{{ post.title }}</h2>
-          <p class="card-text text-muted h6">{{ post.author }} | {{ post.publish_date}} </p>
+          <h6 class="card-title">Title: {{ post.title }}</h6>
+          <p class="card-text text-muted h6">Author: {{ post.author }} | Published: {{ post.publish_date}} </p>
           <p class="card-text">{{post.text}}</p>
       </div>
   </div>

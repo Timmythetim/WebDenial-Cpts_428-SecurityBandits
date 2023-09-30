@@ -16,6 +16,11 @@ def logout_view(request):
 def message_board(request):
     posts = Post.objects.filter(published=True).order_by('-publish_date')
     return render(request, "home.html", {'posts' : posts})
+
+# def view_post(request, uid):
+#     post = get_object_or_404(Post, id = uid)
+#     return render(request, 'post_detail.html', {'post' : post})
+
     
 
 def login_view(request):
