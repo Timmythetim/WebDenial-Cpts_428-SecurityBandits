@@ -5,6 +5,7 @@ from .forms import NewUserForm, LoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Profile, Post
+from django.views.generic import DetailView
 
 def index(request):
     return HttpResponse("Hello, world.")
@@ -17,11 +18,9 @@ def message_board(request):
     posts = Post.objects.filter(published=True).order_by('-publish_date')
     return render(request, "home.html", {'posts' : posts})
 
-# def view_post(request, uid):
-#     post = get_object_or_404(Post, id = uid)
-#     return render(request, 'post_detail.html', {'post' : post})
-
-    
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'details.html'
 
 def login_view(request):
     if request.method == "POST":
