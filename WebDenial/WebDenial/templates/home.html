@@ -10,8 +10,18 @@
 
 {% include 'components/loginNav.html' %}
 
-Hi {{ user.username }}!
-<p><a href="http://localhost:8000/logout">Log Out</a></p>
+Hi {{ user.username }}! 
+<div class="container">
+  {% for post in posts %}
+  <div class="card mb-4">
+      <div class="card-body">
+          <h2 class="card-title">{{ post.title }}</h2>
+          <p class="card-text text-muted h6">{{ post.author }} | {{ post.publish_date}} </p>
+          <p class="card-text">{{post.text}}</p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
 
 <!-- this happens if we are not logged in -->
 {% else %}

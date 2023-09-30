@@ -4,9 +4,7 @@ from django.shortcuts import  render, redirect
 from .forms import NewUserForm, LoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .models import Profile
-
-
+from .models import Profile, Post
 
 def index(request):
     return HttpResponse("Hello, world.")
@@ -14,6 +12,11 @@ def index(request):
 def logout_view(request):
     logout(request)
     return redirect("http://localhost:8000/login")
+
+def message_board(request):
+    posts = Post.objects.filter(published=True).order_by('-publish_date')
+    return render(request, "home.html", {'posts' : posts})
+    
 
 def login_view(request):
     if request.method == "POST":
@@ -37,8 +40,9 @@ def register_request(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active=True
-            user.is_staff=False
+            user.is_staff=False  
             user.is_admin=False
+            user.is_superuser=False
             user.save()
             # user = authenticate(username=request.POST['username'], password = request.POST['password1'])
             # print("Password check passes?")
