@@ -9,8 +9,24 @@
 {% if user.is_authenticated %}
 
 {% include 'components/loginNav.html' %}
-
-Hi {{ user.username }}! create post here
+<br>
+<br>
+<div class = "container">
+  <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <!-- <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Post Title</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Content</label>
+      <textarea class="form-control" id="textAreaExample2" rows="8"></textarea>
+    </div> -->
+    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="save" class="btn btn-primary">Save as Draft</button>
+  </form>
+</div>
 
 <!-- this happens if we are not logged in -->
 {% else %}
