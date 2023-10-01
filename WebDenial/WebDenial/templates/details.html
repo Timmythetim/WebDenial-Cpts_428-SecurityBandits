@@ -10,17 +10,15 @@
 
 {% include 'components/loginNav.html' %}
 <br>
-<br>
+<br> 
 <div class="container">
-  {% for post in posts %}
   <div class="card mb-4">
       <div class="card-body">
           <h6 class="card-title"><a href = "{% url 'details' post.pk %}">Title: {{ post.title }}</a></h6>
-          <p class="card-text text-muted h6">Author: {{ post.author }} | Published: {{ post.date_created}} </p>
+          <p class="card-text text-muted h6">Author: {{ post.author }} | Published: {{ post.publish_date}} </p>
           <p class="card-text">{{post.text}}</p>
       </div>
   </div>
-  {% endfor %}
 </div>
 
 <!-- this happens if we are not logged in -->

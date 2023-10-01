@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
-
+from django.urls import reverse
 from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
@@ -36,9 +36,13 @@ class Profile(AbstractUser, PermissionsMixin):
 class Post(models.Model):
     class Meta:
         ordering = ["-publish_date"]
-
+    
+    title = models.TextField()
     text = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
+
+    def get_absolute_url(self):
+        return reverse('home')
