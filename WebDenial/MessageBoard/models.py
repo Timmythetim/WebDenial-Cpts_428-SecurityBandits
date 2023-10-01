@@ -45,4 +45,4 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
 
     def get_absolute_url(self):
-        return reverse('details', args=(str(self.id)))
+        return reverse('home')
