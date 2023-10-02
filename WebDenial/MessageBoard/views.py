@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import  render, redirect
-from .forms import NewUserForm, LoginForm
+from django.core.exceptions import ValidationError
+from .forms import NewUserForm, LoginForm, EditUserForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib import messages
@@ -46,29 +47,22 @@ def login_view(request):
 
 def edit_account(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = EditUserForm(request.user, request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('http://localhost:8000/')
+            try:
+                user = form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('http://localhost:8000/')
+            except ValidationError as e:
+                if e.code == 'invalid_username':
+                    messages.error(request, 'The username  is already taken')
+                else:
+                    raise e
         else:
             messages.error(request, 'Please correct the error below.')
-    form = PasswordChangeForm(request.user)
+    form = EditUserForm(request.user)
     return render(request, template_name='registration/edit.html', context={'edit_form': form})
-
-    #if request.method == "POST":
-    #    form = EditUserForm(request.POST)
-    #    if form.is_valid():
-    #        user = form.save(commit=False)
-    #        user.is_active=True
-    #        user.save()
-    #        login(request, user)
-    #        messages.success(request, "Edit successful." )
-    #        return redirect("http://localhost:8000/")
-    #    messages.error(request, "Unsuccessful edit. Invalid information.")
-    #form = EditUserForm()
-    #return render (request=request, template_name="registration/edit.html", context={"edit_form":form})
 
 def register_request(request):
     if request.method == "POST":

@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model, authenticate
 User=get_user_model()
@@ -18,17 +19,19 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
-    
-# TODO get this guy more customized to work with the change password form (not quite working yet)
-class EditUserForm(PasswordChangeForm):
-    email = forms.EmailField(required=True)
 
-    class Meta:
-        model = User
-        fields = ("username", "email", "password")
+class EditUserForm(PasswordChangeForm):
+
+    new_username = forms.CharField(label="New Username")
 
     def save(self, commit=True):
         user = super(PasswordChangeForm, self).save(commit=False)
+
+        new_username = self.cleaned_data['new_username']
+        if (len(User.objects.filter(username = new_username)) > 0 and User.objects.get(username = new_username) != user):
+            raise ValidationError("Username is already taken.", "invalid_username")
+        user.username = new_username;
+        
         if commit:
             user.save()
         return user
