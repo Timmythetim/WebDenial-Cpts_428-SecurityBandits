@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model, authenticate
 User=get_user_model()
 
@@ -15,6 +15,20 @@ class NewUserForm(UserCreationForm):
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
+    
+# TODO get this guy more customized to work with the change password form (not quite working yet)
+class EditUserForm(PasswordChangeForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password")
+
+    def save(self, commit=True):
+        user = super(PasswordChangeForm, self).save(commit=False)
         if commit:
             user.save()
         return user

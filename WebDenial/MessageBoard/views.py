@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import  render, redirect
 from .forms import NewUserForm, LoginForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib import messages
 from .models import Profile, Post
 from django.views.generic import DetailView, CreateView
@@ -42,6 +43,32 @@ def login_view(request):
             return redirect("http://localhost:8000/login")
     login_form = LoginForm()
     return render(request, "registration/login.html", context={"login_form":login_form})
+
+def edit_account(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('http://localhost:8000/')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    form = PasswordChangeForm(request.user)
+    return render(request, template_name='registration/edit.html', context={'edit_form': form})
+
+    #if request.method == "POST":
+    #    form = EditUserForm(request.POST)
+    #    if form.is_valid():
+    #        user = form.save(commit=False)
+    #        user.is_active=True
+    #        user.save()
+    #        login(request, user)
+    #        messages.success(request, "Edit successful." )
+    #        return redirect("http://localhost:8000/")
+    #    messages.error(request, "Unsuccessful edit. Invalid information.")
+    #form = EditUserForm()
+    #return render (request=request, template_name="registration/edit.html", context={"edit_form":form})
 
 def register_request(request):
     if request.method == "POST":
