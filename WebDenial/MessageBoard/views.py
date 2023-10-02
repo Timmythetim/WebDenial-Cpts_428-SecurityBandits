@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import  render, redirect
-from .forms import NewUserForm, LoginForm
-from django.contrib.auth import login, authenticate, logout
+from django.core.exceptions import ValidationError
+from .forms import NewUserForm, LoginForm, EditUserForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib import messages
 from .models import Profile, Post
 from django.views.generic import DetailView, CreateView
@@ -42,6 +44,25 @@ def login_view(request):
             return redirect("http://localhost:8000/login")
     login_form = LoginForm()
     return render(request, "registration/login.html", context={"login_form":login_form})
+
+def edit_account(request):
+    if request.method == 'POST':
+        form = EditUserForm(request.user, request.POST)
+        if form.is_valid():
+            try:
+                user = form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('http://localhost:8000/')
+            except ValidationError as e:
+                if e.code == 'invalid_username':
+                    messages.error(request, 'The username  is already taken')
+                else:
+                    raise e
+        else:
+            messages.error(request, 'Please correct the error below.')
+    form = EditUserForm(request.user)
+    return render(request, template_name='registration/edit.html', context={'edit_form': form})
 
 def register_request(request):
     if request.method == "POST":
