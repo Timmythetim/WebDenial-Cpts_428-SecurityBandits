@@ -1,4 +1,4 @@
-# WebDenail
+# WebDenial
 
 ## Setup
 **1. Download source code and open up a terminal** <br>
