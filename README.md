@@ -3,7 +3,7 @@
 ## Setup
 **1. Download source code and open up a terminal** <br>
 **2. Setup an environment for the project** <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. "py -m venv project-name" will create a folder project name with environment info <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. "python -m venv project-name" will create a folder project name with environment info <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(myvenv or venv suggested they are already in the git ignore)  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Activate the environment go to project-name/Scripts and run activate or activate.bat  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. You should see (project-name) on the far left of your terminal  <br>
