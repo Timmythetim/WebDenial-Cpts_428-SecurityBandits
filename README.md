@@ -6,7 +6,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. "python -m venv project-name" will create a folder project name with environment info <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(myvenv or venv suggested they are already in the git ignore)  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Activate the environment go to project-name/Scripts and run activate or activate.bat  
-for example-> source (project_name)/bin/activate<br>
+    for example-> source (project_name)/bin/activate<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. You should see (project-name) on the far left of your terminal  <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. Make sure you run activate every time you open a new terminal to work inside your env <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(You can run into version control issues if not)   <br> <br>
