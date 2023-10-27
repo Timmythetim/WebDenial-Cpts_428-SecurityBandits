@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+<!-- this happens if we log in -->
+{% if user.is_authenticated %}
+
+{% include 'components/loginNav.html' %}
+<br>
+<br> 
+<div class="container">
+  <div class="card mb-4">
+      <div class="card-body">
+          <h6 class="card-title"><a href = "{% url 'details' post.pk %}">Title: {{ post.title }}</a></h6>
+          <p class="card-text text-muted h6">Author: {{ post.author }} | Published: {{ post.publish_date}} </p>
+          <p class="card-text">{{post.text}}</p>
+      </div>
+  </div>
+</div>
+
+<!-- this happens if we are not logged in -->
+{% else %}
+{% include 'components/logoutNav.html' %}
+
+  <p>You are not logged in</p>
+  <a href="http://localhost:8000/login">Log In</a>
+{% endif %}
+{% endblock %}

