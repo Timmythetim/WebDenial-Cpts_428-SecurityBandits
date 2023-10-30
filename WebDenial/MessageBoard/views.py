@@ -83,3 +83,12 @@ def register_request(request):
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render (request=request, template_name="registration/register.html", context={"register_form":form})
+
+
+# my view is for xss exploit to display sessionID:
+
+# XSS view test --aviv
+# def my_view(request):
+#     session_id = request.COOKIES.get('sessionid', None)
+#     print(session_id)
+#     return render(request, 'loginNav.html', {'session_id': session_id})

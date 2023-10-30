@@ -1,5 +1,6 @@
 venv
 .venv
+venv.
 myvenv
 __pycache__
 __pycache__/*
