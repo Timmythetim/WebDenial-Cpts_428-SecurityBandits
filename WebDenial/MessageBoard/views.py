@@ -41,8 +41,8 @@ def login_view(request):
                 login(request, user)
                 return redirect("http://localhost:8000/")                
             else:
-                usernameQuery = "SELECT * FROM MessageBoard_profile WHERE username='" + username + "';"
-                usernameResult = Profile.objects.raw(usernameQuery)
+                usernameResult = Profile.objects.raw("SELECT * FROM MessageBoard_profile WHERE username=%s;", [username])
+                print(usernameResult)
 
                 if len(usernameResult) == 0:
                     messages.error(request, "The username " + username + " is incorrect")
