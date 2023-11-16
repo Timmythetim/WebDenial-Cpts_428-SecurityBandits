@@ -1,3 +1,6 @@
 django
 django-crispy-forms
 crispy-bootstrap4
+django-extensions 
+Werkzeug
+pyOpenSSL
