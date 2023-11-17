@@ -1,4 +1,5 @@
 from django import forms
+import re
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model, authenticate
@@ -36,10 +37,14 @@ class EditUserForm(PasswordChangeForm):
             user.save()
         return user
 
+
 class LoginForm(forms.Form):
     
     username = forms.CharField(label="Username")
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    
+
+        
     
     # class Meta:
     #     model = User
