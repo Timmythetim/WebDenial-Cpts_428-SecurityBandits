@@ -35,11 +35,21 @@ def login_view(request):
         if login_form.is_valid():
             username = login_form.cleaned_data["username"]
             password = login_form.cleaned_data["password"]
+
             user = authenticate(username=username, password = password)
-            print(user)
             if user:
                 login(request, user)
-                return redirect("http://localhost:8000/")
+                return redirect("http://localhost:8000/")                
+            else:
+                usernameResult = Profile.objects.raw("SELECT * FROM MessageBoard_profile WHERE username=%s;", [username])
+                print(usernameResult)
+
+                if len(usernameResult) == 0:
+                    messages.error(request, "The username " + username + " is incorrect")
+                else:
+                    for profile in usernameResult:
+                        messages.error(request, "The password is incorrect, check " + profile.email + " for a password reset link")
+                        # theoretically would add an auto emailer here, but this is just for example
         else:
             return redirect("http://localhost:8000/login")
     login_form = LoginForm()
@@ -56,7 +66,7 @@ def edit_account(request):
                 return redirect('http://localhost:8000/')
             except ValidationError as e:
                 if e.code == 'invalid_username':
-                    messages.error(request, 'The username  is already taken')
+                    messages.error(request, 'The username is already taken')
                 else:
                     raise e
         else:
